@@ -1,66 +1,76 @@
 ﻿using FitnessTracker.Data.ScaffoldContext;
-using FitnessTracker.Data.ScaffoldModels;
+using FitnessTracker.Api.Mappings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FitnessTracker.Api.Controllers;
+using DomainUser = FitnessTracker.Domain.Entities.User;
+using DataUser = FitnessTracker.Data.ScaffoldModels.User;
 
-[ApiController]
-[Route("api/[controller]")]
-public class UsersController : ControllerBase
+namespace FitnessTracker.Api.Controllers
 {
-    private readonly FitnessDbContext _context;
-
-    public UsersController(FitnessDbContext context)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UsersController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly FitnessDbContext _context;
 
-    // GET api/users
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetAll()
-        => await _context.Users.ToListAsync();
+        public UsersController(FitnessDbContext context)
+        {
+            _context = context;
+        }
 
-    // GET api/users/5
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<User>> Get(int id)
-    {
-        var user = await _context.Users.FindAsync(id);
-        return user is null ? NotFound() : Ok(user);
-    }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DomainUser>>> GetAll()
+        {
+            var users = await _context.Users.ToListAsync();
+            return Ok(users.Select(u => u.ToDomain()));
+        }
 
-    // POST api/users
-    [HttpPost]
-    public async Task<ActionResult<User>> Create(User user)
-    {
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<DomainUser>> Get(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) return NotFound();
 
-        return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
-    }
+            return Ok(user.ToDomain());
+        }
 
-    // PUT api/users/5
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, User user)
-    {
-        if (id != user.Id) return BadRequest();
+        [HttpPost]
+        public async Task<IActionResult> Create(DomainUser user)
+        {
+            var entity = user.ToData();
 
-        _context.Entry(user).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
+            _context.Users.Add(entity);
+            await _context.SaveChangesAsync();
 
-        return NoContent();
-    }
+            return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity.ToDomain());
+        }
 
-    // DELETE api/users/5
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id)
-    {
-        var user = await _context.Users.FindAsync(id);
-        if (user is null) return NotFound();
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, DomainUser user)
+        {
+            if (id != user.Id) return BadRequest();
 
-        _context.Users.Remove(user);
-        await _context.SaveChangesAsync();
+            var entity = await _context.Users.FindAsync(id);
+            if (entity == null) return NotFound();
 
-        return NoContent();
+            user.UpdateData(entity);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) return NotFound();
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

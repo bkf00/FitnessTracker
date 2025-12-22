@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using FitnessTracker.Data.ScaffoldModels;
 using Microsoft.EntityFrameworkCore;
 
+using FitnessTracker.Data.ScaffoldModels;
+
 namespace FitnessTracker.Data.ScaffoldContext;
 
 public partial class FitnessDbContext : DbContext
