@@ -1,12 +1,10 @@
-﻿using FitnessTracker.Domain.Entities;
+﻿using FitnessTracker.Core.Dtos.User;
 
 namespace FitnessTracker.Core.Services;
 
 public interface IUserService
 {
-    Task<IEnumerable<User>> GetAllAsync();
-    Task<User?> GetByIdAsync(int id);
-    Task<User> CreateAsync(User user);
-    Task UpdateAsync(int id, User user);
-    Task DeleteAsync(int id);
+    Task<UserDto?> GetByIdAsync(int id);
+    Task<UserDto> CreateAsync(CreateUserRequest request);
+    Task<UserDto?> UpdateAsync(int id, UpdateUserRequest request);
 }

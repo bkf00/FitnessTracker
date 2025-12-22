@@ -14,7 +14,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\FitnessTracker.Core\FitnessTracker.Core.csproj" />
-		<ProjectReference Include="..\FitnessTracker.Domain\FitnessTracker.Domain.csproj" />
 		<ProjectReference Include="..\FitnessTracker.Infrastructure\FitnessTracker.Infrastructure.csproj" />
 	</ItemGroup>
 
