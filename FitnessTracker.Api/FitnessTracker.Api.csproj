@@ -7,17 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FitnessTracker.Data\FitnessTracker.Data.csproj" />
-    <ProjectReference Include="..\FitnessTracker.Domain\FitnessTracker.Domain.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\FitnessTracker.Core\FitnessTracker.Core.csproj" />
+		<ProjectReference Include="..\FitnessTracker.Domain\FitnessTracker.Domain.csproj" />
+		<ProjectReference Include="..\FitnessTracker.Infrastructure\FitnessTracker.Infrastructure.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validators\" />
-  </ItemGroup>
 
 </Project>
