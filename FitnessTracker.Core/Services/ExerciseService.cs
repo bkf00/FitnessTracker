@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Dtos.Exercise;
+using FitnessTracker.Core.Exceptions;
 using FitnessTracker.Core.Mappers;
 using FitnessTracker.Core.Repository;
 using FitnessTracker.Core.Services.Interfaces;
@@ -32,10 +33,10 @@ public sealed class ExerciseService : IExerciseService
     public async Task<ExerciseDto> CreateAsync(CreateExerciseRequest request)
     {
         if (!await _muscleGroupRepository.ExistsAsync(request.MuscleGroup))
-            throw new InvalidOperationException("Invalid muscle group.");
+            throw new BusinessRuleException("Invalid muscle group.");
 
         if (!await _difficultyLevelRepository.ExistsAsync(request.DifficultyLevel))
-            throw new InvalidOperationException("Invalid difficulty level.");
+            throw new BusinessRuleException("Invalid difficulty level.");
 
         var exercise = new Exercise(
             request.Name,

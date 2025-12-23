@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Dtos.MeasurementLog;
+using FitnessTracker.Core.Exceptions;
 using FitnessTracker.Core.Mappers;
 using FitnessTracker.Core.Repository;
 using FitnessTracker.Core.Services.Interfaces;
@@ -25,10 +26,10 @@ public sealed class MeasurementLogService : IMeasurementLogService
     {
         var registrationDate = await _userRepository.GetRegistrationDateAsync(request.UserId);
         if (!registrationDate.HasValue)
-            throw new InvalidOperationException("User not found.");
+            throw new BusinessRuleException("User not found.");
 
         if (request.MeasurementDate < registrationDate.Value)
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Measurement date cannot be before user registration date.");
 
         var lastLog = await _repository.GetLastByUserAsync(request.UserId);
@@ -45,7 +46,7 @@ public sealed class MeasurementLogService : IMeasurementLogService
                     Math.Abs(request.Weight - lastLog.Weight) / days;
 
                 if (dailyDelta > MaxDailyWeightDeltaKg)
-                    throw new InvalidOperationException(
+                    throw new BusinessRuleException(
                         $"Weight change exceeds {MaxDailyWeightDeltaKg} kg per day.");
             }
         }

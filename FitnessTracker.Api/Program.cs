@@ -1,11 +1,12 @@
-using FitnessTracker.Infrastructure.Context;
+using FitnessTracker.Api.Middlewares;
+using FitnessTracker.Core.Repository;
 using FitnessTracker.Core.Services;
+using FitnessTracker.Core.Services.Interfaces;
+using FitnessTracker.Infrastructure.Context;
 using FitnessTracker.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using FitnessTracker.Core.Services.Interfaces;
-using FitnessTracker.Core.Repository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +54,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ProblemDetailsMiddleware>();
 
 app.UseAuthorization();
 app.MapControllers();

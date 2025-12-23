@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Dtos.User;
+using FitnessTracker.Core.Exceptions;
 using FitnessTracker.Core.Mappers;
 using FitnessTracker.Core.Repository;
 using FitnessTracker.Core.Services.Interfaces;
@@ -27,7 +28,7 @@ public sealed class UserService : IUserService
         // Uniqueness check
         var existing = await _repo.GetByEmailAsync(request.Email);
         if (existing is not null)
-            throw new InvalidOperationException("Email already exists.");
+            throw new BusinessRuleException("Email already exists.");
 
         var gender = ParseGender(request.Gender);
 

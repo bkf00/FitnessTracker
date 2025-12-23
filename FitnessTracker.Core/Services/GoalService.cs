@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Dtos.Goal;
+using FitnessTracker.Core.Exceptions;
 using FitnessTracker.Core.Mappers;
 using FitnessTracker.Core.Repository;
 using FitnessTracker.Core.Services.Interfaces;
@@ -40,22 +41,22 @@ public sealed class GoalService : IGoalService
             request.EndDate);
 
         if (hasOverlap)
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Overlapping goals of the same type are not allowed.");
 
         // 🔹 2. Weight logic (trg_Goal_WeightLogic)
         var currentWeight = await _userRepository.GetCurrentWeightAsync(request.UserId);
         if (!currentWeight.HasValue)
-            throw new InvalidOperationException("User not found.");
+            throw new BusinessRuleException("User not found.");
 
         if (request.GoalType == "weight_loss" &&
             request.TargetValue >= currentWeight.Value)
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Weight-loss goal must target less than current weight.");
 
         if (request.GoalType == "weight_gain" &&
             request.TargetValue <= currentWeight.Value)
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Weight-gain goal must target more than current weight.");
 
         // 🔹 3. Create & save
@@ -84,22 +85,22 @@ public sealed class GoalService : IGoalService
             excludeGoalId: goal.Id);
 
         if (hasOverlap)
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Overlapping goals of the same type are not allowed.");
 
         // 🔹 2. Weight logic
         var currentWeight = await _userRepository.GetCurrentWeightAsync(goal.UserId);
         if (!currentWeight.HasValue)
-            throw new InvalidOperationException("User not found.");
+            throw new BusinessRuleException("User not found.");
 
         if (goal.GoalType == "weight_loss" &&
             request.TargetValue >= currentWeight.Value)
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Weight-loss goal must target less than current weight.");
 
         if (goal.GoalType == "weight_gain" &&
             request.TargetValue <= currentWeight.Value)
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Weight-gain goal must target more than current weight.");
 
         // 🔹 3. Apply update

@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Dtos.FoodItem;
+using FitnessTracker.Core.Exceptions;
 using FitnessTracker.Core.Mappers;
 using FitnessTracker.Core.Repository;
 using FitnessTracker.Core.Services.Interfaces;
@@ -30,7 +31,7 @@ public sealed class FoodItemService : IFoodItemService
     public async Task<FoodItemDto> CreateAsync(CreateFoodItemRequest request)
     {
         if (await _repository.ExistsByNameAsync(request.Name))
-            throw new InvalidOperationException("Food item with the same name already exists.");
+            throw new BusinessRuleException("Food item with the same name already exists.");
 
         var foodItem = new FoodItem(
             request.Name,
