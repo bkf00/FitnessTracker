@@ -110,4 +110,14 @@ public sealed class UserRepository : IUserRepository
             .Select(u => (DateOnly?)u.RegistrationDate)
             .FirstOrDefaultAsync();
     }
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var entity = await _context.Users.FindAsync(id);
+        if (entity is null) return false;
+
+        _context.Users.Remove(entity);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
 }

@@ -9,4 +9,5 @@ public interface IWorkoutService
     Task<WorkoutDto?> GetByIdAsync(int id);
     Task<WorkoutDto> CreateAsync(CreateWorkoutRequest request);
     Task<WorkoutDto?> UpdateAsync(int id, UpdateWorkoutRequest request);
+    Task<bool> DeleteAsync(int id);
 }

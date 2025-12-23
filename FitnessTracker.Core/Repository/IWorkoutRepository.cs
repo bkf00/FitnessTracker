@@ -9,4 +9,5 @@ public interface IWorkoutRepository
     Task<Workout?> GetByIdAsync(int id);
     Task AddAsync(Workout workout);
     Task<bool> UpdateAsync(Workout workout);
+    Task<bool> DeleteAsync(int id);
 }

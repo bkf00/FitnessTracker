@@ -11,5 +11,5 @@ public interface IUserRepository
     Task<bool> UpdateAsync(User user);
     Task<decimal?> GetCurrentWeightAsync(int userId);
     Task<DateOnly?> GetRegistrationDateAsync(int userId);
-
+    Task<bool> DeleteAsync(int id);
 }

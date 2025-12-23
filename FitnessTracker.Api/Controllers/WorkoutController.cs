@@ -50,4 +50,12 @@ public sealed class WorkoutsController : ControllerBase
         var updated = await _service.UpdateAsync(id, request);
         return updated is null ? NotFound() : Ok(updated);
     }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _service.DeleteAsync(id);
+        return deleted ? NoContent() : NotFound();
+    }
+
 }

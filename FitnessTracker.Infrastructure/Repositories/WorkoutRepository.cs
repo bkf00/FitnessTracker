@@ -88,4 +88,13 @@ public sealed class WorkoutRepository : IWorkoutRepository
             DurationInMinutes = domain.DurationInMinutes,
             Notes = domain.Notes
         };
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var entity = await _context.Workouts.FindAsync(id);
+        if (entity is null) return false;
+
+        _context.Workouts.Remove(entity);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

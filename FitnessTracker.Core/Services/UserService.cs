@@ -72,4 +72,10 @@ public sealed class UserService : IUserService
 
         throw new ArgumentException("Invalid gender.", nameof(value));
     }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        return await _repo.DeleteAsync(id);
+    }
+
 }
