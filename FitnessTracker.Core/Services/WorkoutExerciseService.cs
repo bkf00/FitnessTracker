@@ -5,7 +5,7 @@ using FitnessTracker.Domain.Entities;
 
 namespace FitnessTracker.Core.Services;
 
-internal sealed class WorkoutExerciseService : IWorkoutExerciseService
+public sealed class WorkoutExerciseService : IWorkoutExerciseService
 {
     private readonly IWorkoutExerciseRepository _repository;
 
