@@ -25,6 +25,29 @@ public sealed class WorkoutExerciseRepository : IWorkoutExerciseRepository
         return entity is null ? null : MapToDomain(entity);
     }
 
+    public async Task<IReadOnlyList<DomainWorkoutExercise>> GetAllAsync()
+    {
+        var entities = await _context.WorkoutExercises
+            .AsNoTracking()
+            .OrderBy(x => x.WorkoutId)
+            .ThenBy(x => x.ExerciseId)
+            .ToListAsync();
+
+        return entities.Select(MapToDomain).ToList();
+    }
+
+    public async Task<IReadOnlyList<DomainWorkoutExercise>> GetAllByWorkoutAsync(int workoutId)
+    {
+        var entities = await _context.WorkoutExercises
+            .AsNoTracking()
+            .Where(x => x.WorkoutId == workoutId)
+            .OrderBy(x => x.ExerciseId)
+            .ToListAsync();
+
+        return entities.Select(MapToDomain).ToList();
+    }
+
+
     public async Task AddAsync(DomainWorkoutExercise workoutExercise)
     {
         EfWorkoutExercise entity = MapToEntity(workoutExercise);

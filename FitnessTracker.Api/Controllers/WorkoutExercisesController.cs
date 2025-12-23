@@ -22,6 +22,20 @@ public sealed class WorkoutExercisesController : ControllerBase
         return entity is null ? NotFound() : Ok(entity);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await _service.GetAllAsync();
+        return Ok(result);
+    }
+
+    [HttpGet("workout/{workoutId:int}")]
+    public async Task<IActionResult> GetAllByWorkout(int workoutId)
+    {
+        var result = await _service.GetAllByWorkoutAsync(workoutId);
+        return Ok(result);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create(CreateWorkoutExerciseRequest request)
     {

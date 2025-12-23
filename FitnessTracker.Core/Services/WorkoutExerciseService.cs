@@ -28,6 +28,18 @@ public sealed class WorkoutExerciseService : IWorkoutExerciseService
         var entity = await _repository.GetByIdAsync(id);
         return entity is null ? null : WorkoutExerciseMapper.ToDto(entity);
     }
+    public async Task<IReadOnlyList<WorkoutExerciseDto>> GetAllAsync()
+    {
+        var entities = await _repository.GetAllAsync();
+        return entities.Select(WorkoutExerciseMapper.ToDto).ToList();
+    }
+
+    public async Task<IReadOnlyList<WorkoutExerciseDto>> GetAllByWorkoutAsync(int workoutId)
+    {
+        var entities = await _repository.GetAllByWorkoutAsync(workoutId);
+        return entities.Select(WorkoutExerciseMapper.ToDto).ToList();
+    }
+
 
     public async Task<WorkoutExerciseDto> CreateAsync(CreateWorkoutExerciseRequest request)
     {

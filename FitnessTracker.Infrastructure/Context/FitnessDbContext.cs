@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using FitnessTracker.Infrastructure.Models;
 
 namespace FitnessTracker.Infrastructure.Context;
@@ -40,10 +38,9 @@ public partial class FitnessDbContext : DbContext
 
     public virtual DbSet<WorkoutExercise> WorkoutExercises { get; set; }
 
-   /* keeping this for future reasons -  
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=FitnessDB;Trusted_Connection=True;TrustServerCertificate=True");
-   */
+   
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<DifficultyLevel>(entity =>
