@@ -9,7 +9,6 @@ namespace FitnessTracker.Core.Services;
 
 public sealed class GoalService : IGoalService
 {
-    private readonly IGoalRepository _repository;
     private readonly IGoalRepository _goalRepository;
     private readonly IUserRepository _userRepository;
 
@@ -20,14 +19,10 @@ public sealed class GoalService : IGoalService
         _goalRepository = goalRepository;
         _userRepository = userRepository;
     }
-    public GoalService(IGoalRepository repository)
-    {
-        _repository = repository;
-    }
 
     public async Task<GoalDto?> GetByIdAsync(int id)
     {
-        var goal = await _repository.GetByIdAsync(id);
+        var goal = await _goalRepository.GetByIdAsync(id);
         return goal is null ? null : GoalMapper.ToDto(goal);
     }
 
