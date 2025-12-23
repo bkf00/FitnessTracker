@@ -1,6 +1,7 @@
 ﻿using FitnessTracker.Core.Dtos.WorkoutExercise;
 using FitnessTracker.Core.Mappers;
-using FitnessTracker.Core.Repositories;
+using FitnessTracker.Core.Repository;
+using FitnessTracker.Core.Services.Interfaces;
 using FitnessTracker.Domain.Entities;
 
 namespace FitnessTracker.Core.Services;

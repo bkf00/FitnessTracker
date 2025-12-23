@@ -1,4 +1,4 @@
-﻿using FitnessTracker.Core.Repositories;
+﻿using FitnessTracker.Core.Repository;
 using FitnessTracker.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,5 @@
 ﻿using FitnessTracker.Core.Dtos.Exercise;
-using FitnessTracker.Core.Services;
+using FitnessTracker.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTracker.Api.Controllers;

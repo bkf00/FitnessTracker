@@ -1,6 +1,6 @@
 ﻿using FitnessTracker.Core.Dtos.FoodLog;
 
-namespace FitnessTracker.Core.Services;
+namespace FitnessTracker.Core.Services.Interfaces;
 
 public interface IFoodLogService
 {

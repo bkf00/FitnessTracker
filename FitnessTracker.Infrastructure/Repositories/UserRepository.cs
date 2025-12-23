@@ -1,10 +1,10 @@
 ﻿using FitnessTracker.Infrastructure.Context;
-using FitnessTracker.Core.Repositories;
 using FitnessTracker.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 using DomainUser = FitnessTracker.Domain.Entities.User;
 using EfUser = FitnessTracker.Infrastructure.Models.User;
+using FitnessTracker.Core.Repository;
 
 namespace FitnessTracker.Infrastructure.Repositories;
 

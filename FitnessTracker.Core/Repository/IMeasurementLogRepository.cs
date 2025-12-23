@@ -1,6 +1,6 @@
 ﻿using FitnessTracker.Domain.Entities;
 
-namespace FitnessTracker.Core.Repositories;
+namespace FitnessTracker.Core.Repository;
 
 public interface IMeasurementLogRepository
 {

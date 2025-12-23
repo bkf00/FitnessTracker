@@ -1,6 +1,7 @@
 ﻿using FitnessTracker.Core.Dtos.MuscleGroup;
 using FitnessTracker.Core.Mappers;
-using FitnessTracker.Core.Repositories;
+using FitnessTracker.Core.Repository;
+using FitnessTracker.Core.Services.Interfaces;
 
 namespace FitnessTracker.Core.Services;
 

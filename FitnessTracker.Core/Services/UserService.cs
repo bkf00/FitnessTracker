@@ -1,6 +1,7 @@
 ﻿using FitnessTracker.Core.Dtos.User;
 using FitnessTracker.Core.Mappers;
-using FitnessTracker.Core.Repositories;
+using FitnessTracker.Core.Repository;
+using FitnessTracker.Core.Services.Interfaces;
 using FitnessTracker.Domain.Entities;
 using FitnessTracker.Domain.Enums;
 

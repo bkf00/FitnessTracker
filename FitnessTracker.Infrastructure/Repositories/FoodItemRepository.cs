@@ -1,4 +1,4 @@
-﻿using FitnessTracker.Core.Repositories;
+﻿using FitnessTracker.Core.Repository;
 using FitnessTracker.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -80,4 +80,11 @@ public sealed class FoodItemRepository : IFoodItemRepository
             Carbs = domain.Carbs,
             Fat = domain.Fat
         };
+    public async Task<bool> ExistsByNameAsync(string name)
+    {
+        return await _context.FoodItems
+            .AsNoTracking()
+            .AnyAsync(x => x.Name == name);
+    }
+
 }

@@ -1,10 +1,11 @@
 using FitnessTracker.Infrastructure.Context;
-using FitnessTracker.Core.Repositories;
 using FitnessTracker.Core.Services;
 using FitnessTracker.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using FitnessTracker.Core.Services.Interfaces;
+using FitnessTracker.Core.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

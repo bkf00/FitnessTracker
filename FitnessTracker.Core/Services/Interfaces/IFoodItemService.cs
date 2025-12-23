@@ -1,6 +1,6 @@
 ﻿using FitnessTracker.Core.Dtos.FoodItem;
 
-namespace FitnessTracker.Core.Services;
+namespace FitnessTracker.Core.Services.Interfaces;
 
 public interface IFoodItemService
 {

@@ -1,6 +1,6 @@
 ﻿using FitnessTracker.Core.Dtos.Goal;
 
-namespace FitnessTracker.Core.Services;
+namespace FitnessTracker.Core.Services.Interfaces;
 
 public interface IGoalService
 {
