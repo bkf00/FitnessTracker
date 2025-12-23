@@ -16,6 +16,15 @@ public sealed class UserRepository : IUserRepository
     {
         _context = context;
     }
+    public async Task<IReadOnlyList<DomainUser>> GetAllAsync()
+    {
+        var entities = await _context.Users
+            .AsNoTracking()
+            .OrderBy(u => u.Name)
+            .ToListAsync();
+
+        return entities.Select(MapToDomain).ToList();
+    }
 
     public async Task<DomainUser?> GetByIdAsync(int id)
     {
@@ -64,9 +73,10 @@ public sealed class UserRepository : IUserRepository
             entity.Name,
             entity.Email,
             entity.BirthDate,
-            Enum.Parse<Gender>(entity.Gender),
+            Enum.Parse<Gender>(entity.Gender, ignoreCase: true),
             entity.Height,
-            entity.Weight);
+            entity.Weight
+        );
 
         user.SetId(entity.Id);
         return user;

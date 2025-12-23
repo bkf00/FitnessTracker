@@ -13,8 +13,6 @@ public class User
     public decimal Weight { get; private set; }
     public DateOnly RegistrationDate { get; private set; }
 
-    private User() { }
-
     public User(string name, string email, DateOnly birthDate, Gender gender, decimal height, decimal weight)
     {
         Name = name;

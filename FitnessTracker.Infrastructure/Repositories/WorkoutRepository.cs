@@ -16,6 +16,27 @@ public sealed class WorkoutRepository : IWorkoutRepository
         _context = context;
     }
 
+    public async Task<IReadOnlyList<DomainWorkout>> GetAllAsync()
+    {
+        var entities = await _context.Workouts
+            .AsNoTracking()
+            .OrderByDescending(w => w.StartAt)
+            .ToListAsync();
+
+        return entities.Select(MapToDomain).ToList();
+    }
+
+    public async Task<IReadOnlyList<DomainWorkout>> GetAllByUserAsync(int userId)
+    {
+        var entities = await _context.Workouts
+            .AsNoTracking()
+            .Where(w => w.UserId == userId)
+            .OrderByDescending(w => w.StartAt)
+            .ToListAsync();
+
+        return entities.Select(MapToDomain).ToList();
+    }
+
     public async Task<DomainWorkout?> GetByIdAsync(int id)
     {
         EfWorkout? entity = await _context.Workouts

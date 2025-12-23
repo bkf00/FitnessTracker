@@ -17,6 +17,12 @@ public sealed class UserService : IUserService
         _repo = repo;
     }
 
+    public async Task<IReadOnlyList<UserDto>> GetAllAsync()
+    {
+        var users = await _repo.GetAllAsync();
+        return users.Select(UserMapper.ToDto).ToList();
+    }
+
     public async Task<UserDto?> GetByIdAsync(int id)
     {
         var user = await _repo.GetByIdAsync(id);

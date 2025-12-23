@@ -15,6 +15,21 @@ public sealed class WorkoutsController : ControllerBase
         _service = service;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var workouts = await _service.GetAllAsync();
+        return Ok(workouts);
+    }
+
+    [HttpGet("user/{userId:int}")]
+    public async Task<IActionResult> GetAllByUser(int userId)
+    {
+        var workouts = await _service.GetAllByUserAsync(userId);
+        return Ok(workouts);
+    }
+
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {

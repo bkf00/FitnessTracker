@@ -15,6 +15,14 @@ public sealed class UsersController : ControllerBase
         _service = service;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var users = await _service.GetAllAsync();
+        return Ok(users);
+    }
+
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {

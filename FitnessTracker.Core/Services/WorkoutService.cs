@@ -15,6 +15,18 @@ public sealed class WorkoutService : IWorkoutService
         _repository = repository;
     }
 
+    public async Task<IReadOnlyList<WorkoutDto>> GetAllAsync()
+    {
+        var workouts = await _repository.GetAllAsync();
+        return workouts.Select(WorkoutMapper.ToDto).ToList();
+    }
+
+    public async Task<IReadOnlyList<WorkoutDto>> GetAllByUserAsync(int userId)
+    {
+        var workouts = await _repository.GetAllByUserAsync(userId);
+        return workouts.Select(WorkoutMapper.ToDto).ToList();
+    }
+
     public async Task<WorkoutDto?> GetByIdAsync(int id)
     {
         var workout = await _repository.GetByIdAsync(id);
