@@ -92,4 +92,12 @@ public sealed class UserRepository : IUserRepository
             .Select(u => (decimal?)u.Weight)
             .FirstOrDefaultAsync();
     }
+    public async Task<DateOnly?> GetRegistrationDateAsync(int userId)
+    {
+        return await _context.Users
+            .AsNoTracking()
+            .Where(u => u.Id == userId)
+            .Select(u => (DateOnly?)u.RegistrationDate)
+            .FirstOrDefaultAsync();
+    }
 }

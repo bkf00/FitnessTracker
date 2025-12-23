@@ -35,6 +35,12 @@ builder.Services.AddScoped<IDifficultyLevelRepository, DifficultyLevelRepository
 builder.Services.AddScoped<IDifficultyLevelService, DifficultyLevelService>();
 builder.Services.AddScoped<IGoalRepository, GoalRepository>();
 builder.Services.AddScoped<IGoalService, GoalService>();
+builder.Services.AddScoped<IFoodItemRepository, FoodItemRepository>();
+builder.Services.AddScoped<IFoodItemService, FoodItemService>();
+builder.Services.AddScoped<IFoodLogRepository, FoodLogRepository>();
+builder.Services.AddScoped<IFoodLogService, FoodLogService>();
+builder.Services.AddScoped<IMeasurementLogRepository, MeasurementLogRepository>();
+builder.Services.AddScoped<IMeasurementLogService, MeasurementLogService>();
 
 
 

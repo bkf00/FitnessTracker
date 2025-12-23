@@ -1,0 +1,10 @@
+﻿using FitnessTracker.Domain.Entities;
+
+namespace FitnessTracker.Core.Repositories;
+
+public interface IFoodLogRepository
+{
+    Task<FoodLog?> GetByIdAsync(int id);
+    Task AddAsync(FoodLog foodLog);
+    Task<bool> UpdateAsync(FoodLog foodLog);
+}

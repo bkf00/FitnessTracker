@@ -9,5 +9,6 @@ public interface IUserRepository
     Task AddAsync(User user);
     Task<bool> UpdateAsync(User user);
     Task<decimal?> GetCurrentWeightAsync(int userId);
+    Task<DateOnly?> GetRegistrationDateAsync(int userId);
 
 }
