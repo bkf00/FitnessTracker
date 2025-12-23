@@ -13,9 +13,14 @@ public sealed class ExerciseService : IExerciseService
     private readonly IMuscleGroupRepository _muscleGroupRepository;
     private readonly IDifficultyLevelRepository _difficultyLevelRepository;
 
-    public ExerciseService(IExerciseRepository repository)
+    public ExerciseService(
+        IExerciseRepository exerciseRepository,
+        IMuscleGroupRepository muscleGroupRepository,
+        IDifficultyLevelRepository difficultyLevelRepository)
     {
-        _repository = repository;
+        _repository = exerciseRepository;
+        _muscleGroupRepository = muscleGroupRepository;
+        _difficultyLevelRepository = difficultyLevelRepository;
     }
 
     public async Task<ExerciseDto?> GetByIdAsync(int id)
@@ -38,6 +43,11 @@ public sealed class ExerciseService : IExerciseService
         if (!await _difficultyLevelRepository.ExistsAsync(request.DifficultyLevel))
             throw new BusinessRuleException("Invalid difficulty level.");
 
+        if (await _repository.ExistsByNameAsync(request.Name))
+            throw new BusinessRuleException(
+                "An exercise with the same name already exists.");
+
+
         var exercise = new Exercise(
             request.Name,
             request.MuscleGroup,
@@ -47,4 +57,13 @@ public sealed class ExerciseService : IExerciseService
         await _repository.AddAsync(exercise);
         return ExerciseMapper.ToDto(exercise);
     }
+    public async Task<bool> DeleteAsync(int id)
+    {
+        if (await _repository.IsUsedInWorkoutsAsync(id))
+            throw new BusinessRuleException(
+                "Exercise cannot be deleted because it is used in workouts.");
+
+        return await _repository.DeleteAsync(id);
+    }
+
 }

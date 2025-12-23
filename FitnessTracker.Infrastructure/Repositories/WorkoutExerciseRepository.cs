@@ -49,6 +49,25 @@ public sealed class WorkoutExerciseRepository : IWorkoutExerciseRepository
         return true;
     }
 
+    public async Task<bool> ExistsAsync(int workoutId, int exerciseId)
+    {
+        return await _context.WorkoutExercises
+            .AsNoTracking()
+            .AnyAsync(x =>
+                x.WorkoutId == workoutId &&
+                x.ExerciseId == exerciseId);
+    }
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var entity = await _context.WorkoutExercises.FindAsync(id);
+        if (entity is null) return false;
+
+        _context.WorkoutExercises.Remove(entity);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+
     private static DomainWorkoutExercise MapToDomain(EfWorkoutExercise entity)
     {
         var workoutExercise = new DomainWorkoutExercise(

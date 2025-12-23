@@ -43,6 +43,36 @@ public sealed class ExerciseRepository : IExerciseRepository
 
         exercise.SetId(entity.Id);
     }
+    public async Task<bool> ExistsByNameAsync(string name)
+    {
+        return await _context.Exercises
+            .AsNoTracking()
+            .AnyAsync(e => e.Name.ToLower() == name.ToLower());
+    }
+
+    public async Task<bool> IsUsedInWorkoutsAsync(int exerciseId)
+    {
+        return await _context.WorkoutExercises
+            .AsNoTracking()
+            .AnyAsync(we => we.ExerciseId == exerciseId);
+    }
+
+    public async Task<bool> ExistsAsync(int exerciseId)
+    {
+        return await _context.Exercises
+            .AsNoTracking()
+            .AnyAsync(e => e.Id == exerciseId);
+    }
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var entity = await _context.Exercises.FindAsync(id);
+        if (entity is null) return false;
+
+        _context.Exercises.Remove(entity);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
 
     private static DomainExercise MapToDomain(EfExercise entity)
     {

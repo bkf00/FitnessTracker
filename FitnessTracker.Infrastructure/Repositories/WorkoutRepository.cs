@@ -55,6 +55,13 @@ public sealed class WorkoutRepository : IWorkoutRepository
         workout.SetId(entity.Id);
     }
 
+    public async Task<bool> ExistsAsync(int workoutId)
+    {
+        return await _context.Workouts
+            .AsNoTracking()
+            .AnyAsync(w => w.Id == workoutId);
+    }
+
     public async Task<bool> UpdateAsync(DomainWorkout workout)
     {
         EfWorkout? entity = await _context.Workouts.FindAsync(workout.Id);
