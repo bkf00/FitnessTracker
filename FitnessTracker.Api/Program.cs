@@ -33,6 +33,8 @@ builder.Services.AddScoped<IMuscleGroupRepository, MuscleGroupRepository>();
 builder.Services.AddScoped<IMuscleGroupService, MuscleGroupService>();
 builder.Services.AddScoped<IDifficultyLevelRepository, DifficultyLevelRepository>();
 builder.Services.AddScoped<IDifficultyLevelService, DifficultyLevelService>();
+builder.Services.AddScoped<IGoalRepository, GoalRepository>();
+builder.Services.AddScoped<IGoalService, GoalService>();
 
 
 

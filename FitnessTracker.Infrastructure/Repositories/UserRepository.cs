@@ -83,4 +83,13 @@ public sealed class UserRepository : IUserRepository
             Weight = domain.Weight,
             RegistrationDate = domain.RegistrationDate
         };
+
+    public async Task<decimal?> GetCurrentWeightAsync(int userId)
+    {
+        return await _context.Users
+            .AsNoTracking()
+            .Where(u => u.Id == userId)
+            .Select(u => (decimal?)u.Weight)
+            .FirstOrDefaultAsync();
+    }
 }
